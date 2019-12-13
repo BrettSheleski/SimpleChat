@@ -16,7 +16,8 @@ namespace SimpleChat
 
         void Add(Topic topic);
         Task<Topic> GetTopicAsync(int id);
-        void AddAuthor(Author author);
+        void Add(Author author);
         Task<List<Message>> GetLatestMessagesForTopicAsync(int topicId, int count);
+        void Add(Message message);
     }
 }

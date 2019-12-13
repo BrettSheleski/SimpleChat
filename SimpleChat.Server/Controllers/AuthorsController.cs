@@ -24,7 +24,7 @@ namespace SimpleChat.Server.Controllers
         [HttpPost]
         public async Task<Author> Post([FromBody] Author author)
         {
-            ChatService.AddAuthor(author);
+            ChatService.Add(author);
 
             await ChatService.SaveChangesAsync();
 

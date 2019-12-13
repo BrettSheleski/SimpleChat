@@ -21,9 +21,14 @@ namespace SimpleChat.Server
             Context.Topics.Add(topic);
         }
 
-        public void AddAuthor(Author author)
+        public void Add(Author author)
         {
             Context.Authors.Add(author);
+        }
+
+        public void Add(Message message)
+        {
+            Context.Messages.Add(message);
         }
 
 

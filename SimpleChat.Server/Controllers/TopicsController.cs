@@ -61,5 +61,13 @@ namespace SimpleChat.Server.Controllers
 
             return messages;
         }
+
+        [HttpPost("/Topics/{topicId}/Messages")]
+        public async Task PostMessage([FromBody]Message message)
+        {
+            this.ChatService.Add(message);
+
+            await this.ChatService.SaveChangesAsync();
+        }
     }
 }
