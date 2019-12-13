@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="Select a Topic"
+             x:Class="SimpleChat.App.Mobile.TopicsListPage">
+    <ListView ItemsSource="{Binding Topics}" RefreshCommand="{Binding UpdateTopicsCommand}" IsPullToRefreshEnabled="True" IsRefreshing="{Binding UpdateTopicsCommand.Executing}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <TextCell Text="{Binding Topic.Name}" Detail="{Binding Topic.Description}" Command="{Binding SelectCommand}" />
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>

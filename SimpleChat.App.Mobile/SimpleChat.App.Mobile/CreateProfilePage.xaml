@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="SimpleChat.App.Mobile.CreateProfilePage">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Frame Grid.Row="1" Grid.Column="1" BackgroundColor="Red">
+            <Label Text="PICTURE HERE" />
+        </Frame>
+        <Entry Grid.Row="2" Grid.Column="1" WidthRequest="200" Text="{Binding Name}" ReturnCommand="{Binding CreateProfileCommand}" Placeholder="Enter your name" />
+        <Button Grid.Row="3" Grid.Column="1" Text="Register" Command="{Binding CreateProfileCommand}" />
+    </Grid>
+</ContentPage>
