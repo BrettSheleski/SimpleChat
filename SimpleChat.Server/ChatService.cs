@@ -16,16 +16,25 @@ namespace SimpleChat.Server
 
         public ChatContext Context { get; }
 
-        public void Add(Topic topic)
+        public async Task AddAsync(Topic topic)
         {
-            Context.Topics.Add(topic);
+            await Context.Topics.AddAsync(topic);
         }
 
-        public void AddAuthor(Author author)
+        public async Task AddAsync(Author author)
         {
-            Context.Authors.Add(author);
+            await Context.Authors.AddAsync(author);
         }
 
+        public async Task AddAsync(Message message)
+        {
+            await Context.Messages.AddAsync(message);
+        }
+
+        public Task<Author> GetAuthorAsync(Guid id)
+        {
+            return this.Context.Authors.Where(x => x.Id == id).FirstOrDefaultAsync();
+        }
 
         public Task<List<Message>> GetLatestMessagesForTopicAsync(int topicId, int count)
         {

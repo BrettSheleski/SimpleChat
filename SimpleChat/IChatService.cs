@@ -14,9 +14,11 @@ namespace SimpleChat
         Task SaveChangesAsync();
         Task SaveChangesAsync(CancellationToken cancellationToken);
 
-        void Add(Topic topic);
+        Task AddAsync(Topic topic);
         Task<Topic> GetTopicAsync(int id);
-        void AddAuthor(Author author);
+        Task AddAsync(Author author);
         Task<List<Message>> GetLatestMessagesForTopicAsync(int topicId, int count);
+        Task AddAsync(Message message);
+        Task<Author> GetAuthorAsync(Guid id);
     }
 }

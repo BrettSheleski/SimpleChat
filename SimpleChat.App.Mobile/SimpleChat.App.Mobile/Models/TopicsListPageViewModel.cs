@@ -28,7 +28,7 @@ namespace SimpleChat.App.Mobile.Models
         public ObservableCollection<TopicModel> Topics { get; } = new ObservableCollection<TopicModel>();
 
 
-        async Task UpdateTopicsAsync()
+        public async Task UpdateTopicsAsync()
         {
             Dictionary<int, TopicModel> existingTopics = Topics.ToDictionary(x => x.Topic.Id);
 

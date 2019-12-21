@@ -39,20 +39,28 @@ namespace SimpleChat.App.Mobile
 
         public async Task<IEnumerable<Message>> GetLatestMessagesForTopicAsync(Topic topic, int count)
         {
-            UriBuilder builder = new UriBuilder(ServiceUri);
-            builder.Path = $"/Topics/{topic.Id}/Messages/Latest?count={count}";
-            string json;
-
-            using (var client = new WebClient())
+            try
             {
-                client.Headers[HttpRequestHeader.Accept] = "application/json";
+                UriBuilder builder = new UriBuilder(ServiceUri);
+                builder.Path = $"/Topics/{topic.Id}/Messages/Latest";
+                builder.Query = $"count={count}";
+                string json;
 
-                json = await client.DownloadStringTaskAsync(builder.Uri);
+                using (var client = new WebClient())
+                {
+                    client.Headers[HttpRequestHeader.Accept] = "application/json";
+
+                    json = await client.DownloadStringTaskAsync(builder.Uri);
+                }
+
+                List<Message> messages = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Message>>(json);
+
+                return messages;
             }
-
-            List<Message> topics = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Message>>(json);
-
-            return topics;
+            catch
+            {
+                return new List<Message>();
+            }
         }
 
         public async Task<Message> CreateMessageAsync(int topicId, string text, Guid authorId)
@@ -79,6 +87,25 @@ namespace SimpleChat.App.Mobile
             msg = Newtonsoft.Json.JsonConvert.DeserializeObject<Message>(json);
 
             return msg;
+        }
+
+        public async Task<Author> GetAuthorAsync(Guid authorId)
+        {
+            UriBuilder builder = new UriBuilder(ServiceUri);
+
+            builder.Path = $"/Authors/{authorId}";
+            string json;
+
+            using (var client = new WebClient())
+            {
+                client.Headers[HttpRequestHeader.Accept] = "application/json";
+
+                json = await client.DownloadStringTaskAsync(builder.Uri);
+            }
+
+            Author author = Newtonsoft.Json.JsonConvert.DeserializeObject<Author>(json);
+
+            return author;
         }
 
         public async Task<IEnumerable<Topic>> GetTopicsAsync()

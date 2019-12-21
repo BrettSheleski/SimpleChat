@@ -16,5 +16,15 @@ namespace SimpleChat.App.Mobile
         {
             InitializeComponent();
         }
+
+        protected async override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+
+            if (BindingContext is Models.TopicsListPageViewModel vm)
+            {
+                await vm.UpdateTopicsAsync();
+            }
+        }
     }
 }

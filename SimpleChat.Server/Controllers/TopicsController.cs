@@ -34,7 +34,7 @@ namespace SimpleChat.Server.Controllers
         [HttpPost]
         public async Task Post(Topic topic)
         {
-            ChatService.Add(topic);
+            await ChatService.AddAsync(topic);
 
             await ChatService.SaveChangesAsync();
         }
@@ -60,6 +60,14 @@ namespace SimpleChat.Server.Controllers
             List<Message> messages = await this.ChatService.GetLatestMessagesForTopicAsync(topicId, count);
 
             return messages;
+        }
+
+        [HttpPost("/Topics/{topicId}/Messages")]
+        public async Task AddMessage([FromBody] Message message)
+        {
+            await this.ChatService.AddAsync(message);
+
+            await this.ChatService.SaveChangesAsync();
         }
     }
 }

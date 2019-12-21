@@ -24,12 +24,17 @@ namespace SimpleChat.Server.Controllers
         [HttpPost]
         public async Task<Author> Post([FromBody] Author author)
         {
-            ChatService.AddAuthor(author);
+            await ChatService.AddAsync(author);
 
             await ChatService.SaveChangesAsync();
 
             return author;
         }
 
+        [HttpGet("{id}")]
+        public async Task<Author> Get(Guid id)
+        {
+            return await this.ChatService.GetAuthorAsync(id);
+        }
     }
 }
