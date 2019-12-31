@@ -16,7 +16,7 @@ namespace SimpleChat.App.Mobile
 
             InitializeComponent();
 
-            Uri uri = new Uri("http://10.0.2.2:5000");
+            Uri uri = new Uri("https://simplechatserver.azurewebsites.net/");
             ChatService chatService = new ChatService(uri);
 
             Guid? userId = getUserId();
@@ -51,11 +51,11 @@ namespace SimpleChat.App.Mobile
 
             var vm = new Models.CreateProfilePageViewModel(chatService, navPage.Navigation);
 
-            vm.CompletionTask = () =>
+            vm.CompletionTask = async () =>
             {
-                CreateTopicsListPage(chatService, vm.Author.Id);
+                await SetUserIdAsync(vm.Author.Id);
 
-                return Task.CompletedTask;
+                CreateTopicsListPage(chatService, vm.Author.Id);
             };
 
             page.BindingContext = vm;

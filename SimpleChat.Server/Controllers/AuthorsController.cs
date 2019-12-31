@@ -36,5 +36,20 @@ namespace SimpleChat.Server.Controllers
         {
             return await this.ChatService.GetAuthorAsync(id);
         }
+
+
+        [HttpGet("/Authors/{id}/Image")]
+        public async Task<AuthorImage> GetImage(Guid id)
+        {
+            return await this.ChatService.GetAuthorImageAsync(id);
+        }
+
+        [HttpPost("/Authors/{id}/Image")]
+        public async Task PostImage([FromBody]AuthorImage authorImage)
+        {
+            await this.ChatService.AddAsync(authorImage);
+
+            await this.ChatService.SaveChangesAsync();
+        }
     }
 }

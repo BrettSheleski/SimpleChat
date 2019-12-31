@@ -43,5 +43,11 @@ namespace SimpleChat.App.Mobile.Models
 
             await CompletionTask?.Invoke();
         }
+
+        async Task TakeImageAsync()
+        {
+            throw new NotImplementedException();
+
+        }
     }
 }

@@ -20,5 +20,7 @@ namespace SimpleChat
         Task<List<Message>> GetLatestMessagesForTopicAsync(int topicId, int count);
         Task AddAsync(Message message);
         Task<Author> GetAuthorAsync(Guid id);
+        Task<AuthorImage> GetAuthorImageAsync(Guid id);
+        Task AddAsync(AuthorImage authorImage);
     }
 }

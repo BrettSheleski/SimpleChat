@@ -28,7 +28,7 @@ namespace SimpleChat.App.Mobile.Models
 
         void UpdateCanSendMessage()
         {
-            this.SendCommand.Enabled = !string.IsNullOrEmpty(Message);
+            this.SendCommand.Enabled = !SendCommand.Executing && !string.IsNullOrEmpty(Message);
         }
 
         private readonly Dictionary<Guid, AuthorModel> authors = new Dictionary<Guid, AuthorModel>();

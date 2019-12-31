@@ -31,9 +31,18 @@ namespace SimpleChat.Server
             await Context.Messages.AddAsync(message);
         }
 
+        public async  Task AddAsync(AuthorImage authorImage)
+        {
+            await Context.AuthorImages.AddAsync(authorImage);
+        }
         public Task<Author> GetAuthorAsync(Guid id)
         {
             return this.Context.Authors.Where(x => x.Id == id).FirstOrDefaultAsync();
+        }
+
+        public Task<AuthorImage> GetAuthorImageAsync(Guid id)
+        {
+            return this.Context.AuthorImages.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public Task<List<Message>> GetLatestMessagesForTopicAsync(int topicId, int count)

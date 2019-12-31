@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace SimpleChat.Server
@@ -13,25 +14,58 @@ namespace SimpleChat.Server
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Author> Authors { get; set; }
-
+        public DbSet<AuthorImage> AuthorImages { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             var topicBuilder = modelBuilder.Entity<Topic>();
             var messageBuilder = modelBuilder.Entity<Message>();
             var authorBuilder = modelBuilder.Entity<Author>();
+            var authorImageBuilder = modelBuilder.Entity<AuthorImage>();
 
             BuildEntity(topicBuilder);
             BuildEntity(messageBuilder);
             BuildEntity(authorBuilder);
-
+            BuildEntity(authorImageBuilder);
 
             base.OnModelCreating(modelBuilder);
+        }
+
+        private void BuildEntity(EntityTypeBuilder<AuthorImage> builder)
+        {
+            builder.ToTable("author_image").HasKey(x => x.Id);
+
+            builder.Property(x => x.Id)
+                .IsRequired()
+                .HasColumnName("author_id")
+                ;
+
+            builder.Property(x => x.Data)
+                .IsRequired()
+                .HasColumnName("data")
+                ;
+
+            builder.Property(x => x.ContentType)
+                .IsRequired()
+                .HasColumnName("content_type")
+                .HasMaxLength(100)
+                ;
+
+            builder.Property(x => x.Filename)
+                .IsRequired()
+                .HasColumnName("file_name")
+                .HasMaxLength(255)
+                ;
+
         }
 
         private void BuildEntity(EntityTypeBuilder<Author> authorBuilder)
         {
             authorBuilder.ToTable("author").HasKey(x => x.Id);
+
+            authorBuilder.HasOne(x => x.Image)
+                .WithOne(x => x.Author)
+                .HasForeignKey<AuthorImage>(x => x.Id);
 
             authorBuilder.Property(x => x.Id)
                          .IsRequired()

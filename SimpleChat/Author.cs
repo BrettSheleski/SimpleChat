@@ -9,5 +9,7 @@ namespace SimpleChat
         public virtual string Name { get; set; }
 
         public virtual List<Message> Messages { get; set; }
+
+        public AuthorImage Image { get; set; }
     }
 }
