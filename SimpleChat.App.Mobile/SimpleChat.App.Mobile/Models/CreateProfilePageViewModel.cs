@@ -47,6 +47,7 @@ namespace SimpleChat.App.Mobile.Models
         async Task TakeImageAsync()
         {
             throw new NotImplementedException();
+            
 
         }
     }
